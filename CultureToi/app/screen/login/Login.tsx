@@ -16,53 +16,11 @@ interface LoginSelectScreenProps {
   
 const Login = (props: LoginSelectScreenProps) => {
    
-    const [isLoading, setLoading] = useState<boolean>(true);
-    const [result, setResult] = useState<Array<string>>([]);
-    const [taux, setTaux] = useState<Array<number>>([]);
-    const [text1, setText1] = useState<string>("0");
-    const [text2, setText2] = useState<number>(0);
-    const [indexTaux, setIndexTaux] = useState<number>(0);
-    const [baseUrl, setbase] = useState(0);
-    const [symbol, setSymbol] = useState<Array<string>>([]);
+   
 
 
 
 
-
-    useEffect(() => {
-      //Recupére les Symboles des devises
-      fetch("https://api.vatcomply.com/currencies")
-      .then((response) => response.json())
-      .then((json) => {
-          
-        //const result = Object.entries(json.rates).map(([key, val]) => key);
-        
-        //Stock les Symboles des devises
-        setSymbol(json);
-
-        
-
-        
-        
-
-    })
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
-
-    }, [baseUrl])
-  
-
-    useEffect(() => {
-      if(taux.length > 0){
-        //Stock le taux de la devise base 2
-        setText2(taux[indexTaux])
-      }
-    },[taux])
-
-    //var obj = JSON.parse();
-    
-    
-    
 
     return(
         <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#4682B4'}}>
