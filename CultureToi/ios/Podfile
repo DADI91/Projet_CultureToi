@@ -19,6 +19,8 @@ target 'CultureToi' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
   target 'CultureToiTests' do
     inherit! :complete
     # Pods for testing
