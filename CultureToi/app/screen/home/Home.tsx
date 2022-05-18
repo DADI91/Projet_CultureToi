@@ -29,7 +29,7 @@ const MyTabs = ({navigation}) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
           style={{backgroundColor: "blue"}}
-          title="Go to Details... again"
+          title="Login"
           onPress={() => navigation.navigate('Login')}
       />
     </View>
