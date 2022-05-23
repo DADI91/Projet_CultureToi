@@ -9,10 +9,14 @@
 import React, { PureComponent, } from 'react';
 import { View, StatusBar, AppState, Text, TextInput, Image } from 'react-native';
 import AppIndex from './app/screen/AppIndex';
-import Home from './app/screen/home/Home'
+import { NavigationContainer } from '@react-navigation/native';
+ import { createNativeStackNavigator } from '@react-navigation/native-stack';
+ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 class App extends PureComponent {
+
+
 
   getActiveRoute = (navigationState) => {
     if (!navigationState) {

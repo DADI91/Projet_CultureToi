@@ -35,5 +35,6 @@ const MyTabs = ({navigation}) => {
     </View>
   );
 }
+
  
  export default MyTabs;

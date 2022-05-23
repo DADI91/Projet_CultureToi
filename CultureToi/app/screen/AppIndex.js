@@ -3,6 +3,13 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeIndex from './home/Home';
 import Login from './login/Login';
+import RegisterScreen1 from './login/RegisterScreen1';
+import RegisterScreen2 from './login/RegisterScreen2';
+import RegisterScreen3 from './login/RegisterScreen3';
+import RegisterScreen4 from './login/RegisterScreen4';
+
+
+
 
 
 
@@ -29,6 +36,30 @@ function AppIndex() {
                     }} 
                 />
                 <Stack.Screen name="Login" component={Login}
+                    options={{
+                        headerShown: false,
+                        ...MyTransition,
+                    }} 
+                />
+                <Stack.Screen name="Register1" component={RegisterScreen1}
+                    options={{
+                        headerShown: false,
+                        ...MyTransition,
+                    }} 
+                />
+                <Stack.Screen name="Register2" component={RegisterScreen2}
+                    options={{
+                        headerShown: false,
+                        ...MyTransition,
+                    }} 
+                />
+                <Stack.Screen name="Register3" component={RegisterScreen3}
+                    options={{
+                        headerShown: false,
+                        ...MyTransition,
+                    }} 
+                />
+                <Stack.Screen name="Register4" component={RegisterScreen4}
                     options={{
                         headerShown: false,
                         ...MyTransition,

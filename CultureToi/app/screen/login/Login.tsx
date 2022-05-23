@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar, TextInput, AppRegistry, Image, TouchableOpacity} from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
-import {
-  useFonts,
-  MPLUSRounded1c_100Thin,
-  MPLUSRounded1c_300Light,
-  MPLUSRounded1c_400Regular,
-  MPLUSRounded1c_500Medium,
-  MPLUSRounded1c_700Bold,
-  MPLUSRounded1c_800ExtraBold,
-  MPLUSRounded1c_900Black,
-} from '@expo-google-fonts/m-plus-rounded-1c';
+
 
 interface LoginSelectScreenProps {
   navigation: {
@@ -46,8 +37,12 @@ const Login = (props: LoginSelectScreenProps) => {
   };
 
 
-  const onPressDejaInscrit = () => {
+  const onPressPasInscrit = () => {
 
+    props.navigation.navigate('Register1',{
+      user1 : user,
+      password1: password
+    })
 
   };
 
@@ -135,7 +130,7 @@ const Login = (props: LoginSelectScreenProps) => {
 
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => onPressDejaInscrit()}>
+                <TouchableOpacity onPress={() => onPressPasInscrit()}>
 
                   <Text style={{fontFamily: 'IowanOldStyle-Bold', fontSize: 13, color: '#FFFFFF', height: 50, marginTop: 130 , textDecorationLine: 'underline'}}> {"Pas encore inscrit ? Cliquez ici"} </Text>
 
