@@ -7,6 +7,11 @@ import RegisterScreen1 from './login/RegisterScreen1';
 import RegisterScreen2 from './login/RegisterScreen2';
 import RegisterScreen3 from './login/RegisterScreen3';
 import RegisterScreen4 from './login/RegisterScreen4';
+import Profil from './User/profil';
+import Header from './modale/header';
+import Tab from './modale/tab';
+
+
 
 
 
@@ -60,6 +65,24 @@ function AppIndex() {
                     }} 
                 />
                 <Stack.Screen name="Register4" component={RegisterScreen4}
+                    options={{
+                        headerShown: false,
+                        ...MyTransition,
+                    }} 
+                />
+                 <Stack.Screen name="profil" component={Profil}
+                    options={{
+                        headerShown: false,
+                        ...MyTransition,
+                    }} 
+                />
+                <Stack.Screen name="Header" component={Header}
+                    options={{
+                        headerShown: false,
+                        ...MyTransition,
+                    }} 
+                />
+                <Stack.Screen name="Tab" component={Tab}
                     options={{
                         headerShown: false,
                         ...MyTransition,

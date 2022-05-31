@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar, TextInput, AppRegistry, Image, TouchableOpacity} from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 
 interface LoginSelectScreenProps {
@@ -17,7 +19,7 @@ interface LoginSelectScreenProps {
 const Login = (props: LoginSelectScreenProps) => {
    
    
-  const [user, onChangeUser] = useState<string>("");
+  const [Email, onChangeEmail] = useState<string>("");
   const [password, onChangePassword] = useState<string>("");
 
   const [colorEye, setColorEye] = useState<boolean>(false);
@@ -39,15 +41,20 @@ const Login = (props: LoginSelectScreenProps) => {
 
   const onPressPasInscrit = () => {
 
-    props.navigation.navigate('Register1',{
-      user1 : user,
-      password1: password
-    })
+    props.navigation.navigate('Register1')
 
   };
 
   const onPressConnexion = () => {
 
+    firebase.auth().signInWithEmailAndPassword(Email, password)
+    .then(() => {
+      props.navigation.navigate(("profil"))
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
 
   };
 
@@ -78,9 +85,9 @@ const Login = (props: LoginSelectScreenProps) => {
                 <View style={{backgroundColor: "#FFFFFF", width: 335, height: 45, marginTop: 5, borderRadius: 30 }}>
                   <TextInput
                     style={styles.input}
-                    onChangeText={onChangeUser}
-                    value={user}
-                    placeholder="User"
+                    onChangeText={onChangeEmail}
+                    value={Email}
+                    placeholder="Email"
                   />                  
                 </View>
 

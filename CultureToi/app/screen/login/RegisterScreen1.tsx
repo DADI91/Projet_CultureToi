@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar, TextInput, AppRegistry, Image, TouchableOpacity} from "react-native";
 import { Button } from "react-native-elements/dist/buttons/Button";
 import firebase from '@react-native-firebase/app';
 import '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 
 interface LoginSelectScreenProps {
@@ -12,40 +13,57 @@ interface LoginSelectScreenProps {
     addListener: Function,
     dispatch: Function
   },
-  doLogout: (() => void)
   currentLanguage: string,
   route: any
+  userCred: {
+    user: string,
+    email: string,
+    password: string,
+  },
 
 }
+
+
+
   
-const Login = (props: LoginSelectScreenProps) => {
+const Register = (props: LoginSelectScreenProps) => {
    
    
   const [user, onChangeUser] = useState<string>("");
   const [Email, onChangeEmail] = useState<string>("");
   const [password, onChangePassword] = useState<string>("");
+  const [userExiste, onChangeUserExiste] = useState<boolean>(false);
+
+  const userNameBD = []
+
 
   const [colorEye, setColorEye] = useState<boolean>(false);
   const [errUser, setErrUser] = useState<string>("#FFFFFF");
   const [errEmail, setErrEmail] = useState<string>("#FFFFFF");
   const [errPassword, setErrPassword] = useState<string>("#FFFFFF");
   const [valideSaisie, setValideSaisie] = useState<boolean>(undefined);
-  const [confirm, setConfirm] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+
 
 
   const [passwordInvisible, setPasswordVisible] = useState<boolean>(true);
 
-  /*
-  const params = props.route
 
-  console.log(params)
-*/
   const onPressEye = () => {
     setColorEye(!colorEye)
     setPasswordVisible(!passwordInvisible)
 
   };
 
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
 
 
@@ -53,39 +71,40 @@ const Login = (props: LoginSelectScreenProps) => {
 
    const onPressDejaInscrit = async () => {
     props.navigation.navigate('Login')
-    /*
-    firebase.auth()
-        .createUserWithEmailAndPassword('waliddadi91@gmail.com', '1111111')
-        .then(() => {
-            console.log('User account created & signed in!');
-        })
-        .catch(error => {
-            if (error.code === 'auth/email-already-in-use') {
-            console.log('That email address is already in use!');
-            }
-
-            if (error.code === 'auth/invalid-email') {
-            console.log('That email address is invalid!');
-            }
-
-            console.error(error);
-        });
-    */
-            
-        
-
-    
 
   };
 
   useEffect(()=>{
 
-    if(user === "" ){
+    firestore()
+    .collection('user')
+    .get()
+    .then(querySnapshot => {
+      console.log('Total users: ', querySnapshot.size);
+
+      querySnapshot.forEach(documentSnapshot => {
+         userNameBD.push(documentSnapshot.data().userName)
+      });
+      console.log(userNameBD.some(item => user == item))
+      if(userNameBD.some(item => user == item)){
+        onChangeUserExiste(true)
+      }else{
+        onChangeUserExiste(false)
+      }
+
+    });
+
+  },[user])
+
+
+  useEffect(()=>{
+
+    if(userExiste){
         setErrUser("#F96A72")
         setValideSaisie(true)
         return
     }else{
-        setErrUser("#FFFFFF")
+        setErrUser("green")
         setValideSaisie(false)
     }
     if(Email === ""){
@@ -109,14 +128,21 @@ const Login = (props: LoginSelectScreenProps) => {
 
     }
 
-  },[user, Email, password])
+    onRefresh()
+
+  },[user])
 
   const onPressInscription = () => {
 
  
     if(valideSaisie === !true){
+
+
        //suivant
-       props.navigation.navigate('Register3',{User: user ,Email : Email, password: password })
+       props.navigation.navigate('Register3', {user: user,
+                                              email: Email,
+                                              password: password
+                                              })
 
         return
     }
@@ -224,7 +250,7 @@ const Login = (props: LoginSelectScreenProps) => {
 
 
 
-export default Login ;
+export default Register ;
 
 const styles = StyleSheet.create({
     StyleText1: {

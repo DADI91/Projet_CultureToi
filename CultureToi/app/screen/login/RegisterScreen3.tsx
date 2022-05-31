@@ -11,13 +11,17 @@ interface LoginSelectScreenProps {
     addListener: Function,
     dispatch: Function
   },
-  doLogout: (() => void)
   currentLanguage: string,
-  route: any
+  route: any,
+  userCred: {
+    user: string,
+    email: string,
+    password: string,
+  },
 
 }
   
-const Login = (props: LoginSelectScreenProps) => {
+const Register3 = (props: LoginSelectScreenProps) => {
    
    
   const [nom, onChangeNom] = useState<string>("");
@@ -107,10 +111,20 @@ const Login = (props: LoginSelectScreenProps) => {
  
     if(valideSaisie === !true){
        //suivant
-       props.navigation.navigate('Register4')
+       props.navigation.navigate('Register4',{nom: nom, 
+                                              prenom: prenom, 
+                                              DateNaissance: DateNaissance, 
+                                              pays: pays,
+                                              user: props.route.params.user,
+                                              email: props.route.params.email,
+                                              password : props.route.params.password
+                                            })
 
         return
     }
+
+
+
 
 
 
@@ -253,7 +267,7 @@ const Login = (props: LoginSelectScreenProps) => {
 
 
 
-export default Login ;
+export default Register3 ;
 
 const styles = StyleSheet.create({
     StyleText1: {
